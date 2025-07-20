@@ -1,0 +1,13 @@
+services:
+  ts-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ts-app
+    working_dir: /app
+    volumes:
+      - .:/app
+      - /app/node_modules   # Prevent overwriting container's node_modules
+    tty: true      # Keeps terminal session open Needed for things like: docker exec -it ts-app sh
+    stdin_open: true
+    command: sh    # Just run shell, nothing automatic
