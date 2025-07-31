@@ -99,3 +99,31 @@ interface Circlev2 {
 }
  
 type KindlessCircle = RemoveKindField<Circlev2>;
+
+type SquareEvent = { kind: "square", x: number, y: number };
+type CircleEvent = {  radius: number };
+
+type AllEvents = SquareEvent | CircleEvent;
+
+// Step 2: Filter only those that have `kind` property
+type WithKind<T> = T extends { kind: string } ? T : never;
+
+type EventConfig<Events> = {
+//   [E in Events as E["kind"]]: (event: E) => void;
+  [E in WithKind<Events> as E["kind"]]: (event: E) => void;
+}
+
+type Config = EventConfig<AllEvents>;
+
+// * mapped types + conditional types to introspect types and extract metadata.
+type ExtractPII<Type> = {
+  [Property in keyof Type]: Type[Property] extends { pii: true } ? true : false;
+};
+
+type DBFields = {
+  id: { format: "incrementing" };
+  name: { type: string; pii: true };
+};
+
+type PIIFields = ExtractPII<DBFields>;
+ 

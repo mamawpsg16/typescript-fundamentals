@@ -243,3 +243,38 @@ return str!.length; // ✅ OK — we just checked that str exists
 
 
 console.log('ABC');
+
+//  * TUPPLE = “An array where I know exactly how many items there are, and what type each item should be.”
+
+let personV25: [string, number];
+
+personV25 = ["Kevin", 25]; // ✅ OK
+console.log(personV25, 'personV25');
+// personV25 = [25, "Kevin"]; // ❌ Error: wrong types in wrong positions
+
+// ? With Function Returns
+function getUserNow(): [string, number] {
+  return ["Alice", 30];
+}
+
+const [returnedName, returnedAge] = getUserNow(); // name: string, age: number
+console.log(returnedName, returnedAge, 'returnedName, returnedAge');
+
+
+// ? 🔄 Optional Elements in Tuples
+type OptionalTuple = [string, number?];
+
+let t1: OptionalTuple = ["foo"];         // ✅ OK
+let t2: OptionalTuple = ["foo", 123];    // ✅ OK
+
+
+type NewPoint = [x: number, y: number];
+
+function logPointNew(p: NewPoint) {
+  console.log(p[0], p[1]); // 10 20
+}
+
+logPointNew([10, 20]);
+
+let arrNew: number[] = [1, 2, 3];
+let tup: [string, number] = ["id", 42];
